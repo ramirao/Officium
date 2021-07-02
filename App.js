@@ -1,28 +1,26 @@
 
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import Search from './screens/Search';
 import State from './screens/State';
 import Charts from './screens/Home';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Header from './components/Header'
 
 const Tab = createBottomTabNavigator();
+
 
 function MyTabs() {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      tabCarOptions={{
-        activeTinColor: '#26872a',
-        inactiveTinColor: '#fff',
+      tabBarOptions={{
+        activeTintColor: 'red',
         activeBackgroundColor: '#000000',
-        inactiveBackgroundColor: '#000000',
-          style: { 
-            backgroundColor: '#000000',
-            paddingBottom: 3
-          }
+        inactiveBackgroundColor: '#000000',       
       }}
     >
       <Tab.Screen
@@ -59,10 +57,26 @@ function MyTabs() {
   );
 }
 
+
+
+const Stack = createStackNavigator();
+
+
 export default function App() {
   return (
     <NavigationContainer>
-      <MyTabs />
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={MyTabs}
+          options={{ headerTitle: props => <Header />,
+           headerStyle: {
+            backgroundColor: 'black',
+          }
+          } }
+          
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
